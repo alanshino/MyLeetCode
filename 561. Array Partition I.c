@@ -1,5 +1,5 @@
-int cmpfunc(const void * a, const void * b);
-int arrayPairSum(int* nums, int numsSize) {
+int cmpfunc(const void * a, const void * b);     // 求array裡的數對
+int arrayPairSum(int* nums, int numsSize) {      // 將最小的相加 相加值盡可能最大
     int total=0;
     int i;
     qsort(nums,numsSize,sizeof(int),cmpfunc);
