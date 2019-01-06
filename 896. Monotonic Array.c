@@ -3,9 +3,9 @@ bool isMonotonic(int* A, int ASize) {
     if (ASize<=1){
         return 1;
     }
-    for (i=0;i<ASize-1;i++){
+    for (i=0;i<ASize-1;i++){             // find i <= j, A[i] >= A[j]
         if (*(A+i)>=*(A+i+1)){
-            continue;   
+            continue;
         }else{
             add++;
             break;
@@ -13,8 +13,8 @@ bool isMonotonic(int* A, int ASize) {
     }
     if (add==0) return 1;
     for (i=0;i<ASize-1;i++){
-        if (*(A+i)<=*(A+i+1)){
-            continue;   
+        if (*(A+i)<=*(A+i+1)){          // find i <= j, A[i] <= A[j]
+            continue;
         }else{
             add++;
             break;
