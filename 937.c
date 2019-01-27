@@ -16,7 +16,7 @@ char** reorderLogFiles(char** logs, int logsSize, int* returnSize) {
                 strlong++;
             }
             if (*ps>='0'&&*ps<='9'){
-                number++;   
+                number++;
             }
             ps++;
         }
@@ -33,7 +33,7 @@ char** reorderLogFiles(char** logs, int logsSize, int* returnSize) {
         number=0;
     }
     for (i=0;i<k;i++){
-        *(pc+j+i)=*(logs+call[i]);   
+        *(pc+j+i)=*(logs+call[i]);
     }
-    return pc;
-}
+    return pc;                         // return pointer to pointer to char
+}/** facefucking */
