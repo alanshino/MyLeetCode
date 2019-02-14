@@ -2,7 +2,7 @@ void rotate(int* nums, int numsSize, int k) {
     int temp,i=0,j=0;
     for (i=0;i<k;i++){                      // 記錄交換幾次
         temp=*(nums+numsSize-1);            // 紀錄最後一位的數值
-        for (j=numsSize-1;j>0;j--){        // 由最後開始走,避免使用到已放置更新的數值
+        for (j=numsSize-1;j>0;j--){         // 由最後開始走,避免使用到已放置更新的數值
             *(nums+j)=*(nums+j-1);          // 放置上一位的數值
         }
         *(nums)=temp;                       // 將第一個數值放入剛剛紀錄的最後一位數值
