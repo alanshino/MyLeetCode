@@ -1,12 +1,12 @@
 void qsort(void *base, size_t nitems, size_t size, int (*compar)(const void *, const void*));
 int cmpfunc (const void * a, const void * b){
-    return ( *(int*)a - *(int*)b );                                  // 將array重新排列由小到大
+    return ( *(int*)a - *(int*)b );                                  // 盢array穝逼パ撻
 }
 
 int largestSumAfterKNegations(int* A, int ASize, int K) {
     int i,negative=0,return_value=0,index,zero=0,max_value,total=0;
     qsort(A,ASize,sizeof(int),cmpfunc);
-    for (i=0;i<ASize;i++) {                                         // 找出負數及0
+    for (i=0;i<ASize;i++) {                                         // т璽计の0
         if (*(A+i)<0) {
             negative++;
         }
@@ -15,28 +15,28 @@ int largestSumAfterKNegations(int* A, int ASize, int K) {
         }
     }
     if (K) {
-        for (index=0;K!=0&&negative!=0;K--,negative--) {            // 從最小數字開始交換
+        for (index=0;K!=0&&negative!=0;K--,negative--) {            // 眖程计秨﹍ユ传
             *(A+index)=-*(A+index);
             index++;
         }
         /*for (i=0;i<ASize;i++) {
             printf("%d ",*(A+i));
         }*/
-        if (K%2) {                                                  // 剩餘奇數次
+        if (K%2) {                                                  // 逞緇计Ω
             if (zero) {
-                for (i=0;i<ASize;i++) {                             // 含有0相加後回傳
+                for (i=0;i<ASize;i++) {                             // Τ0肚
                     total+=*(A+i);
                 }
                 return total;
             }
-            qsort(A,ASize,sizeof(int),cmpfunc);                     // 為含有0重整array
-            *(A+0)=-*(A+0);                                         // 調整第一個index的value
+            qsort(A,ASize,sizeof(int),cmpfunc);                     // Τ0俱array
+            *(A+0)=-*(A+0);                                         // 秸俱材indexvalue掦麲
             for (i=0;i<ASize;i++) {
                 total+=*(A+i);
             }
             return total;
         }else {
-            for (i=0;i<ASize;i++) {                                 // 偶數次直接相加後還傳
+            for (i=0;i<ASize;i++) {                                 // 案计Ω钡临肚
                 total+=*(A+i);
             }
             return total;
@@ -50,8 +50,8 @@ int largestSumAfterKNegations(int* A, int ASize, int K) {
     return 0;
 }
 
+/** C
 
-/** C another
 int partition(int *A, int low, int high)
 {
     int tmp = A[low];
@@ -90,29 +90,37 @@ int add_sum(int *A, int Asize)
     return sum;
 }
 
+
+/** C
+
 int largestSumAfterKNegations(int* A, int ASize, int K) {
-    quick_sort(A, 0, ASize - 1);
-    int n = K;
-    for(int i = 0; i < K; i++)
-    {
-        if(A[i] < 0)
-        {
-            A[i] = -A[i];
-            n--;
-        }
-        else
-        {
+    int total[201] = {0};
+    int *totalP = total+100;
+    int t = 0;
+    for(int i = 0; i < ASize;++i){
+        int n= A[i];
+        ++totalP[n];
+        t += n;
+    }
+    int j = 200;
+    for(int i = 0; i < 100;++i,j = j - 2){                            // は锣璽计场だ惠璶糤ㄢ
+        int n = total[i];
+        if(K >= n){
+            K -= n;
+            t += j*n;
+        }else{
+            t += j*K;
+            K = 0;
             break;
         }
     }
-
-    if(n > 0 && 1 == n % 2)
-    {
-            quick_sort(A, 0, ASize - 1);
-            A[0] = -A[0];
-            return add_sum(A, ASize);
+    if(K%2 == 1){                                                     // 弧Τ緇は锣计惠璶は锣程
+        for(int i = 0;i <= 100;++i){
+            if(total[i+100] > 0 || total[100-i] > 0){
+                t = t-2*i;
+                break;
+            }
+        }
     }
-
-    return add_sum(A, ASize);
+    return t;
 }
-*/
