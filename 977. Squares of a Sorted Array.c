@@ -2,6 +2,11 @@
  * Return an array of size *returnSize.
  * Note: The returned array must be malloced, assume caller calls free().
  */
+
+/**
+    先按初始大小建立一個新的 array , 然後將原本 array 的值相乘後放入新建立的 array , 最後對新建 array 快牌後回傳
+*/
+
 int cmpfunc (const void * a, const void * b){
    return ( *(int*)a - *(int*)b );
 }
