@@ -1,219 +1,85 @@
-int numRookCaptures(char** board, int boardRowSize, int boardColSize) {
-    int queen[2], i, j, die = 0, go_down, go_right, go_left, go_up;
-    int B_chess[2] = {0, -1}, P_chess[2] = {0, -1};
-    for (i = 0; i < 8; i++) {
-        for (j = 0; j < 8; j++) {
-            if (board[i][j] == 'R') {
-                queen[0] = i;
-                queen[1] = j;
-                break;
-            }
-        }
+/**
+ * Return an array of size *returnSize.
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+
+/**
+    先建立一個相同大小的 array , 將原先 array 的每個值相乘後放進新的 array , 接著用快排重整新的 array 並將其回傳
+*/
+int cmpfunc (const void * a, const void * b){
+   return ( *(int*)a - *(int*)b );
+}
+int* sortedSquares(int* A, int ASize, int* returnSize) {
+    int *preturn=malloc(sizeof(int)*ASize),i=0;
+    *returnSize=ASize;
+    for (i=0;i<ASize;i++){
+        *(preturn+i)=*(A+i)**(A+i);
     }
-    go_down = 7 - queen[0];
-    go_right = 7 - queen[1];
-    go_up = queen[0] - 0;
-    go_left = queen[1] - 0;
-    if (go_down) {
-        for (i = queen[0] + 1, j = queen[1]; i < 8; i++) {
-            if (board[i][j] == 'B') {
-                B_chess[0] = i;
-                B_chess[1] = 1;
-                break;
-            }
-        }
-        for (i = queen[0] + 1, j = queen[1]; i < 8; i++) {
-            if (board[i][j] == 'p') {
-                P_chess[0] = i;
-                P_chess[1] = 1;
-                break;
-            }
-        }
-        /*if (B_chess[0] < P_chess[0] && B_chess[1] != -1)
-            ;
-        else if (P_chess[0] < B_chess[0] && P_chess[1] != -1)
-            die++;*/
-        if (B_chess[1] == 1) {
-            if (B_chess[0] < P_chess[0])
-                ;
-            else if (P_chess[1] == 1)
-                die++;
-        }
-        else if (P_chess[1] == 1)
-            die++;
-    }
-    printf("%d ",die);
-    B_chess[0] = 0;
-    B_chess[1] = -1;
-    P_chess[0] = 0;
-    P_chess[1] = -1;
-    if (go_right) {
-        for (i = queen[1] + 1, j = queen[0]; i < 8; i++) {
-            if (board[j][i] == 'B') {
-                B_chess[0] = i;
-                B_chess[1] = 1;
-                break;
-            }
-        }
-        for (i = queen[1] + 1, j = queen[0]; i < 8; i++) {
-            if (board[j][i] == 'p') {
-                P_chess[0] = i;
-                P_chess[1] = 1;
-                break;
-            }
-        }
-        /*if (B_chess[0] < P_chess[0] && B_chess[1] != -1)
-            ;
-        else if (P_chess[0] < B_chess[0] && P_chess[1] != -1)
-            die++;*/
-        if (B_chess[1] == 1) {
-            if (B_chess[0] < P_chess[0])
-                ;
-            else if (P_chess[1] == 1)
-                die++;
-        }
-        else if (P_chess[1] == 1)
-            die++;
-    }
-    printf("%d ",die);
-    B_chess[0] = 0;
-    B_chess[1] = -1;
-    P_chess[0] = 0;
-    P_chess[1] = -1;
-    if (go_up) {
-        for (i = queen[0], j = queen[1]; i >= 0; i--) {
-            if (board[i][j] == 'B') {
-                B_chess[0] = i;
-                B_chess[1] = 1;
-                break;
-            }
-        }
-        for (i = queen[0], j = queen[1]; i >= 0; i--) {
-            if (board[i][j] == 'p') {
-                P_chess[0] = i;
-                P_chess[1] = 1;
-                break;
-            }
-        }
-        if (B_chess[1] == 1) {
-            if (B_chess[0] > P_chess[0])
-                ;
-            else if (P_chess[1] == 1)
-                die++;
-        }
-        else if (P_chess[1] == 1)
-            die++;
-    }
-    printf("%d ",die);
-    B_chess[0] = 0;
-    B_chess[1] = -1;
-    P_chess[0] = 0;
-    P_chess[1] = -1;
-    if (go_left) {
-        for (i = queen[0], j = queen[1]; j >= 0; j--) {
-            if (board[i][j] == 'B') {
-                B_chess[0] = j;
-                B_chess[1] = 1;
-                break;
-            }
-        }
-        for (i = queen[0], j = queen[1]; j >= 0; j--) {
-            if (board[i][j] == 'p') {
-                P_chess[0] = j;
-                P_chess[1] = 1;
-                break;
-            }
-        }
-        //printf("%d %d",P_chess[0],B_chess[0]);
-        if (B_chess[1] == 1) {
-            if (B_chess[0] > P_chess[0])
-                ;
-            else if (P_chess[1] == 1)
-                die++;
-        }
-        else if (P_chess[1] == 1)
-            die++;
-    }
-    printf("%d ",die);
-    return die;
+    qsort(preturn,ASize,sizeof(int),cmpfunc);
+    return preturn;
 }
 
-/** C
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
 
-int numRookCaptures(char** board, int boardSize, int* boardColSize){
-    int i,j;
-    int x,y;
-    int count=0;
-    for (i=0; i<boardSize; i++)
-    {
-        for (j=0; j<boardSize; j++)
-        {
-            if (board[i][j]=='R') {
-                x=i;
-                y=j;
-                break;
-            }
+int* sortedSquares(int* A, int ASize, int* returnSize){
+    int i=0,j=ASize-1;
+    int k=ASize-1;
+    int *B=(int *)calloc(ASize,sizeof(int));
+    while(i<=j){
+        if(abs(A[i])<abs(A[j])){
+            B[k]=A[j]*A[j];
+            j--;
         }
-    }
-
-    for (j=y-1; j>=0; j--) {
-        if (board[x][j] == 'B') break;
-        if (board[x][j] == 'p') {
-            count++;
-            break;
+        else{
+            B[k]=A[i]*A[i];
+            i++;
         }
+        k--;
     }
-
-    for (j=y+1; j<boardSize; j++) {
-        if (board[x][j] == 'B') break;
-        if (board[x][j] == 'p') {
-            count++;
-            break;
-        }
-    }
-
-    for (i=x-1; i>=0; i--) {
-        if (board[i][y] == 'B') break;
-        if (board[i][y] == 'p') {
-            count++;
-            break;
-        }
-    }
-
-    for (i=x+1; i<boardSize; i++) {
-        if (board[i][y] == 'B') break;
-        if (board[i][y] == 'p') {
-            count++;
-            break;
-        }
-    }
-
-    return count;
+    *returnSize=ASize;
+    return B;
 }
 
-/** C++
+
+/** Java
 
 class Solution {
-public:
-    int numRookCaptures(vector<vector<char>>& b) {
-        const vector<pair<int,int>> dir={{1,0},{0,1},{-1,0},{0,-1}};
-        int ret=0;
-        for (auto i = 0; i < b.size(); ++i)
-            for (auto j = 0; j < b[i].size(); ++j)
-                if (b[i][j] == 'R'){
-                    for(const auto [dx,dy]:dir){
-                        int x=i,y=j;
-                        while (x >= 0 && x < b.size() && y >= 0 && y < b[x].size() && b[x][y] != 'B'){
-                            if (b[x][y] == 'p'){
-                                ++ret;
-                                break;
-                            }
-                            x += dx;
-                            y += dy;
-                        }
-                    }
-                    break;
-                }
-        return ret;
+    public int[] sortedSquares(int[] A) {
+        int n = A.length;
+        int[] result = new int[n];
+        int i = 0, j = n - 1;
+        for (int p = n - 1; p >= 0; p--) {
+            if (Math.abs(A[i]) > Math.abs(A[j])) {
+                result[p] = A[i] * A[i];
+                i++;
+            } else {
+                result[p] = A[j] * A[j];
+                j--;
+            }
+        }
+        return result;
     }
-};
+}
+
+/** Python
+
+class Solution(object):
+    def sortedSquares(self, A):
+        """
+        :type A: List[int]
+        :rtype: List[int]
+        """
+        new = [x**2 for x in A]
+        new.sort()
+        return new
+
+class Solution(object):
+    def sortedSquares(self, A):
+        """
+        :type A: List[int]
+        :rtype: List[int]
+        """
+
+        return sorted([i**2 for i in A])
